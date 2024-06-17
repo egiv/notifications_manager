@@ -1,5 +1,5 @@
 
-export interface NotificationProps {
+export interface NotificationDto {
     name: string;
     dateStart: string;
 }

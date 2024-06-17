@@ -1,10 +1,21 @@
 import { Injectable } from '@nestjs/common';
-import {NotificationProps} from "../../models/notification";
+import {NotificationDto} from "../../models/notification";
+import {InjectRepository} from "@nestjs/typeorm";
+import { Repository } from 'typeorm';
+import {NotificationEntity} from "./notification.entity";
 
 @Injectable()
 export class NotificationService {
-    createNotification(data: NotificationProps): void {
-        console.log(data)
-        console.log("createNotification")
+    constructor(
+        @InjectRepository(NotificationEntity)
+        private readonly notificationsRepository: Repository<NotificationEntity>,
+    ) {}
+
+
+    async createNotification(dataDto: NotificationDto) {
+        console.log('createNotification')
+        console.debug('dataDto', dataDto)
+        const data = this.notificationsRepository.create(dataDto)
+        return await this.notificationsRepository.save(data);
     }
 }
