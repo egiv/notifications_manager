@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { UserEntity } from '../user/user.entity';
-import { Repository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
+import {Injectable} from '@nestjs/common';
+import {JwtService} from '@nestjs/jwt';
+import {Repository} from 'typeorm';
+import {InjectRepository} from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
+import {UserEntity} from "../user/user.entity";
 
 @Injectable()
 export class AuthService {

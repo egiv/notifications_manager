@@ -1,7 +1,7 @@
-import { Body, Controller, Post, UseGuards, Request } from '@nestjs/common';
-import { NotificationService } from '../../services/notification/notification.service';
-import { NotificationDto } from '../../models/notification';
+import {Body, Controller, Post, Request, UseGuards} from '@nestjs/common';
 import {JwtAuthGuard} from "../../modules/jwt.guard";
+import {NotificationService} from "../../services/notification/notification.service";
+import {NotificationDto} from "../../models/notification.dto";
 
 @Controller('notification')
 export class NotificationController {
