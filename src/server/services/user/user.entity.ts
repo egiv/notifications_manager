@@ -1,17 +1,17 @@
-import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from 'typeorm';
-import {NotificationEntity} from "../notification/notification.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { NotificationEntity } from '../notification/notification.entity';
 
 @Entity()
 export class UserEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column({ unique: true })
-    username: string;
+  @Column({ unique: true })
+  username: string;
 
-    @Column()
-    password: string;
+  @Column()
+  password: string;
 
-    @OneToMany(() => NotificationEntity, notification => notification.user)
-    notifications: NotificationEntity[];
+  @OneToMany(() => NotificationEntity, (notification) => notification.user)
+  notifications: NotificationEntity[];
 }

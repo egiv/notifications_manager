@@ -1,5 +1,4 @@
-
 export interface NotificationDto {
-    name: string;
-    dateStart: string;
+  name: string;
+  dateStart: string;
 }
