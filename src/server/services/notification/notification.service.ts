@@ -1,21 +1,28 @@
 import { Injectable } from '@nestjs/common';
-import {NotificationDto} from "../../models/notification";
-import {InjectRepository} from "@nestjs/typeorm";
+import { NotificationDto } from '../../models/notification';
+import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import {NotificationEntity} from "./notification.entity";
+import { NotificationEntity } from './notification.entity';
+import { UserEntity } from '../user/user.entity';
 
 @Injectable()
 export class NotificationService {
     constructor(
         @InjectRepository(NotificationEntity)
         private readonly notificationsRepository: Repository<NotificationEntity>,
+        @InjectRepository(UserEntity)
+        private readonly usersRepository: Repository<UserEntity>,
     ) {}
 
-
-    async createNotification(dataDto: NotificationDto) {
-        console.log('createNotification')
-        console.debug('dataDto', dataDto)
-        const data = this.notificationsRepository.create(dataDto)
-        return await this.notificationsRepository.save(data);
+    async createNotification(userId: number, dataDto: NotificationDto) {
+        const user = await this.usersRepository.findOne({ where: { id: userId } }); // Используйте where для поиска по имени пользователя
+        if (!user) {
+            throw new Error('User not found');
+        }
+        const notification = this.notificationsRepository.create({
+            ...dataDto,
+            user: user,
+        });
+        return await this.notificationsRepository.save(notification);
     }
 }
